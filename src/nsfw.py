@@ -32,20 +32,5 @@ class cmd(commands.Cog):
             pass
         
 
-
-    @commands.command(aliases=['m8', 'minus'])
-    async def minus8(self, ctx):
-        await ctx.message.delete()
-
-        vids = [
-            'https://i.imgur.com/19Zvw92.mp4', 
-            'https://i.imgur.com/vgXgFsB.mp4',
-            'https://i.imgur.com/j5NEpHa.gif'
-            ]
-        vids = random.choice(vids)
-        await ctx.send(f"```md\n<Minus8> ~ Dance```\n{vids}")
-        print("[>]Minus8 was executed")
-        
-
 def setup(bot):
     bot.add_cog(cmd(bot))
