@@ -1,0 +1,6 @@
+TOKEN = "YOUR TOKEN HERE"
+PREFIX = "PREFIX"
+
+# IPLOOKUP COMMAND
+# https://ipinfo.io/account/home
+PASSTOKEN = "PASSTOKEN"
