@@ -1,6 +1,6 @@
 import discord, os
 from discord.ext import commands
-from config import TOKEN, PREFIX, ID
+from config import TOKEN, PREFIX
 
 bot = commands.Bot(command_prefix=PREFIX, self_bot=True, help_command=None)
 bot.remove_command(help)
