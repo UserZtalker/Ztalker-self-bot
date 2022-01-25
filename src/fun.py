@@ -12,24 +12,17 @@ class cmd(commands.Cog):
     async def iplookup(self, ctx, ip):
         await ctx.message.delete()
         details = handler.getDetails(ip)
-        
-        embed = discord.Embed(title="IP LOOKUP")
-        embed.add_field(name="IP:", value=ip, inline=True)
-        embed.add_field(name="City:", value=details.city, inline=True)
-        embed.add_field(name="Location:", value=details.city, inline=True)
-        embed.add_field(name="Country name:", value=details.country_name, inline=True)
-        embed.add_field(name="Host name:", value=details.hostname, inline=True)
 
-        await ctx.send(embed=embed)
+        await ctx.send(f"""```\nIP: {ip}\nCity: {details.city}\nLocation: {details.city}\nCountry name: {details.country_name}\nHost name: {details.hostname}```""")
+
         print(f"[>]IPLOOKUP was executed ({ip})")
 
 
     @commands.command()
-    async def embed(self, ctx, *, text):
+    async def code(self, ctx, *, text):
         await ctx.message.delete()
 
-        embed = discord.Embed(title="", description=text)
-        await ctx.send(embed=embed)
+        await ctx.send(f"```\n{text}```")
 
         print(f"[>]EMBED was executed")
 
@@ -76,14 +69,7 @@ class cmd(commands.Cog):
     async def server(self, ctx):
         await ctx.message.delete()
 
-        embed = discord.Embed(title = f"{ctx.guild.name}", color = discord.Colour.blue())
-        embed.add_field(name = '~ ID', value = f"{ctx.guild.id}", inline = False)
-        embed.add_field(name = '~ Created on', value = ctx.guild.created_at.strftime("%b %d %Y"), inline = False)
-        embed.add_field(name = '~ Owner', value = f"{ctx.guild.owner}", inline = False)
-        embed.add_field(name = '~ Members', value = f'{ctx.guild.member_count} Members', inline = False)
-        embed.add_field(name = '~ Region', value = f'{ctx.guild.region}', inline = False)
-        embed.set_thumbnail(url = ctx.guild.icon_url)
-        await ctx.send(embed=embed, delete_after=15.0)
+        await ctx.send(f"""```\n~ ID: {ctx.guild.id}\n~ Owner: {ctx.guild.owner}\n~ Members: {ctx.guild.member_count}\n~ Region: {ctx.guild.region}\n~ Created on: {ctx.guild.created_at.strftime("%b %d %Y")}```""")
 
         print(f'[>]SERVER was executed')
 
