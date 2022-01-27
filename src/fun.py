@@ -13,10 +13,24 @@ class cmd(commands.Cog):
         await ctx.message.delete()
         details = handler.getDetails(ip)
 
-        await ctx.send(f"""```\nIP: {ip}\nCity: {details.city}\nLocation: {details.city}\nCountry name: {details.country_name}\nHost name: {details.hostname}```""")
+        author = ctx.message.author
+        pfp = author.avatar_url
+        embed = discord.Embed(title=ip)
+        embed.set_author(name=author, icon_url=pfp)
+        embed.add_field(name="City", value=details.city, inline=True)
+        embed.add_field(name="Location", value=details.loc, inline=True)
+        embed.add_field(name="Country", value=details.country_name, inline=True)
+        embed.add_field(name="HostName", value=details.hostname, inline=True)
+        await ctx.send(embed=embed)
 
         print(f"[>]IPLOOKUP was executed ({ip})")
 
+    @commands.command()
+    async def embed(self, ctx, *, text):
+        embed = discord.Embed(title="Message", description=text)
+        await ctx.send(embed=embed)
+
+        print("[>]EMBED was executed")
 
     @commands.command()
     async def code(self, ctx, *, text):
@@ -24,7 +38,7 @@ class cmd(commands.Cog):
 
         await ctx.send(f"```\n{text}```")
 
-        print(f"[>]EMBED was executed")
+        print(f"[>]CODE was executed")
 
     @commands.command()
     async def spam(self, ctx, amount=50, text="SPAM"):
@@ -68,8 +82,17 @@ class cmd(commands.Cog):
     @commands.command()
     async def server(self, ctx):
         await ctx.message.delete()
+        author = ctx.message.author
+        pfp = author.avatar_url
 
-        await ctx.send(f"""```\n~ ID: {ctx.guild.id}\n~ Owner: {ctx.guild.owner}\n~ Members: {ctx.guild.member_count}\n~ Region: {ctx.guild.region}\n~ Created on: {ctx.guild.created_at.strftime("%b %d %Y")}```""")
+        embed = discord.Embed(title='ServerInfo', color=0xcc3030)
+        embed.set_author(name=author, icon_url=pfp)
+        embed.add_field(name="ID", value=ctx.guild.id, inline=True)
+        embed.add_field(name="OWNER", value=ctx.guild.owner, inline=True)
+        embed.add_field(name="MEMBERS", value=ctx.guild.member_count, inline=True)
+        embed.add_field(name="REGION", value=ctx.guild.region, inline=True)
+        embed.add_field(name="Created on:", value=ctx.guild.created_at.strftime("%b %d %Y"), inline=True)
+        await ctx.send(embed=embed)
 
         print(f'[>]SERVER was executed')
 
