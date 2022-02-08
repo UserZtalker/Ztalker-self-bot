@@ -15,24 +15,14 @@ class cmd(commands.Cog):
 
         author = ctx.message.author
         pfp = author.avatar_url
-        embed = discord.Embed(title=ip)
-        embed.set_author(name=author, icon_url=pfp)
-        embed.add_field(name="City", value=details.city, inline=True)
-        embed.add_field(name="Location", value=details.loc, inline=True)
-        embed.add_field(name="Country", value=details.country_name, inline=True)
-        embed.add_field(name="HostName", value=details.hostname, inline=True)
-        await ctx.send(embed=embed)
+        await ctx.send(f"""```IP: {ip}
+City: {details.city}
+Location: {details.loc}
+Country: {details.country_name}
+HostName: {details.hostname}```""")
+        print("[>] IPLookUp executed")
 
-        print(f"[>]IPLOOKUP was executed ({ip})")
-
-    @commands.command()
-    async def embed(self, ctx, *, text):
-        embed = discord.Embed(title="Message", description=text)
-        await ctx.send(embed=embed)
-
-        print("[>]EMBED was executed")
-
-    @commands.command()
+    @commands.command(aliases=['cd'])
     async def code(self, ctx, *, text):
         await ctx.message.delete()
 
@@ -84,15 +74,12 @@ class cmd(commands.Cog):
         await ctx.message.delete()
         author = ctx.message.author
         pfp = author.avatar_url
-
-        embed = discord.Embed(title='ServerInfo', color=0xcc3030)
-        embed.set_author(name=author, icon_url=pfp)
-        embed.add_field(name="ID", value=ctx.guild.id, inline=True)
-        embed.add_field(name="OWNER", value=ctx.guild.owner, inline=True)
-        embed.add_field(name="MEMBERS", value=ctx.guild.member_count, inline=True)
-        embed.add_field(name="REGION", value=ctx.guild.region, inline=True)
-        embed.add_field(name="Created on:", value=ctx.guild.created_at.strftime("%b %d %Y"), inline=True)
-        await ctx.send(embed=embed)
+        
+        await ctx.send(f"""```ID: {ctx.guild.id}
+OWNER: {ctx.guild.owner}
+MEMBERS: {ctx.guild.member_count}
+REGION: {ctx.guild.region}
+Created on: {ctx.guild.created_at.strftime("%b %d %Y")}```""")
 
         print(f'[>]SERVER was executed')
 
